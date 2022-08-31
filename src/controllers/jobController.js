@@ -19,7 +19,17 @@ const getJobMainList = async (req, res) => {
     res.status(200).json({ jobs: list });
 }
 
+const getJobDetailListPage = async (req, res) => {
+    const { jobId } = req.params;
+    const { offset, limit } = req.query;
+
+    const detailsInfo = await jobService.getJobDetailListPage(jobId, offset, limit);
+
+    res.status(200).json(detailsInfo);
+}
+
 module.exports = {
+    getJobDetailListPage,
     getJobList,
     getJobMainList
 }

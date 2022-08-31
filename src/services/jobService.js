@@ -18,7 +18,7 @@ const getJobList = async (offset, limit, jobTags, jobSort) => {
 
     if (!jobs[0]) throw new AppError("NO_DATA", 409);
     return jobs;
-} 
+}
 
 const getJobMainList = async (offset, limit, jobTags) => {
     validation.validateNumberType(jobTags);
@@ -30,7 +30,31 @@ const getJobMainList = async (offset, limit, jobTags) => {
     return await jobDao.getJobListByTags(offset, limit, jobTags);
 }
 
+const getJobDetailListPage = async (jobId, offset, limit) => {
+    validation.validateNumberType(jobId);
+
+    const job = await jobDao.getJobById(jobId);
+
+    if (!job) throw new AppError('INVALID_DATA', 409);
+
+    if (!offset || !limit) {
+        var recoomendationOffsetDefault = 0;
+        var recommendationLimitDefault = 20;
+    }
+
+    const datas = {
+        jobInfo: await jobDao.getJobDetailList(jobId),
+        subImage: await jobDao.getSubImage(jobId),
+        jobTags: await jobDao.getJobTags(jobId),
+        jobSkills: await jobDao.getJobSkills(jobId),
+        jobRecomendations: await jobDao.getJobRecomendations(recoomendationOffsetDefault, recommendationLimitDefault)
+    }
+
+    return datas;
+}
+
 module.exports = {
+    getJobDetailListPage,
     getJobList,
     getJobMainList
 }
