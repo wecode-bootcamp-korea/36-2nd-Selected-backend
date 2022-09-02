@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/wecode-bootcamp-korea/36-2nd-Selected-backend#readme",
   "dependencies": {
+    "axios": "^0.27.2",
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "dbmate": "^1.0.3",
@@ -28,8 +29,10 @@
     "typeorm": "^0.3.9"
   },
   "devDependencies": {
+    "jest": "^29.0.2",
     "morgan": "^1.10.0",
     "mysql2": "^2.3.3",
-    "nodemon": "^2.0.19"
+    "nodemon": "^2.0.19",
+    "supertest": "^6.2.4"
   }
 }
