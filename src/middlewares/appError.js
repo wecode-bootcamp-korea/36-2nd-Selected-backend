@@ -1,9 +1,10 @@
-function errorHandler(asyncController) {
-  return async (req, res) => {
-    try {
-      await asyncController(req, res);
-    } catch (err) {
-      res.status(err.status ? err.status : 500).json({ message: err.message });
-    }
-  };
-}
+module.exports = class AppError extends Error {
+  constructor(message, status) {
+      super(message);
+      this.name = this.constructor.name;
+
+      Error.captureStackTrace(this, this.constructor);
+      
+      this.status = status || 500;
+  }
+};
