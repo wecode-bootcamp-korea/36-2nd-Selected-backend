@@ -12,6 +12,8 @@ const kakaoLogIn = async (kakaoToken) => {
     },
   });
 
+  // console.log("result.data: ", result.data);
+
   const name = result.data.kakao_account.profile.nickname;
   const email = result.data.kakao_account.email;
   const kakaoId = result.data.id;
@@ -22,6 +24,9 @@ const kakaoLogIn = async (kakaoToken) => {
   if (!isUser) await authDao.kakaoSignUp(name, email, kakaoId);
 
   const token = jwt.sign({ kakaoId, email, name }, secret);
+
+  // const decode = jwt.decode(token, secret);
+  // console.log("decode: ", decode);
 
   return token;
 };
